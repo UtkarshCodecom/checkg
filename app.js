@@ -6,10 +6,6 @@ const path = require("path");
 
 const errorMiddleware = require("./middleware/error");
 
-// Config
-if (process.env.NODE_ENV !== "PRODUCTION") {
-  require("dotenv").config({ path: "backend/config/config.env" });
-}
 
 app.use(express.json());
 app.use(cookieParser());
@@ -20,10 +16,10 @@ const user = require("./routes/routes");
 
 app.use("/api/auth", user);
 
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.use(express.static(path.join(__dirname, "./build")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+  res.sendFile(path.resolve(__dirname, "./build/index.html"));
 });
 
 // Middleware for Errors
